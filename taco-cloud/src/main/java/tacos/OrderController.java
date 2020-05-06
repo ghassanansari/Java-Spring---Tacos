@@ -14,7 +14,7 @@ import tacos.Order;
 
 @Slf4j
 @Controller //this identifies the class as controller
-@RequestMapping("/orders") //It means this class will handle requests that begins with /design
+@RequestMapping("/orders") //It means this class will handle requests that begins with /orders
 public class OrderController {
 	
 	@GetMapping("/current")
@@ -24,7 +24,10 @@ public class OrderController {
 	}
 	
 	@PostMapping
-	public String processOrder(Order order) {
+	public String processOrder(@Valid Order order, Errors errors) {
+		if (errors.hasErrors()) {
+			return "orderForm";
+		}
 		log.info("Order Submitted: " + order);
 		
 		return "redirect:/";

@@ -63,7 +63,10 @@ public class DesignTacoController {
 	}
 	
 	@PostMapping
-	public String processDesign(Taco design) {
+	public String processDesign(@Valid Taco design, Errors errors) {
+		if (errors.hasErrors()) {
+			return "design";
+		}
 		log.info("Processing Design: " + design);
 		
 		return "redirect:/orders/current";
